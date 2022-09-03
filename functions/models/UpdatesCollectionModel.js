@@ -1,4 +1,4 @@
-const CollectionNames = require("../constants/CollectionNames");
+const CollectionNames = require('../constants/CollectionNames');
 
 /**
  * @typedef {Object} Update

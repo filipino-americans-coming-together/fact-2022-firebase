@@ -1,6 +1,6 @@
-const express = require("express");
+const express = require('express');
 
-const UpdatesCollectionModel = require("../models/UpdatesCollectionModel");
+const UpdatesCollectionModel = require('../models/UpdatesCollectionModel');
 
 /**
  * Controller for Updates Firestore collection
@@ -22,19 +22,19 @@ class UpdatesController {
    */
   initRoutes() {
     // GET /updates
-    this.router.get("/", (req, res) => {
+    this.router.get('/', (req, res) => {
       res.status(200).send({
-        message: "/updates endpoint is live",
+        message: '/updates endpoint is live',
       });
     });
 
     // GET /updates/all
-    this.router.get("/all", (req, res) => {
+    this.router.get('/all', (req, res) => {
       this.updatesCollectionModel
           .getAllUpdates()
           .then((_res) => {
             res.status(200).send({
-              message: "Successfully got all upates!",
+              message: 'Successfully got all updates!',
               data: {
                 updates: _res,
               },
@@ -42,14 +42,14 @@ class UpdatesController {
           })
           .catch((error) => {
             res.status(500).send({
-              message: "Unable to get all updates.",
+              message: 'Unable to get all updates.',
               error,
             });
           });
     });
 
     // POST /updates
-    this.router.post("/", (req, res) => {
+    this.router.post('/', (req, res) => {
       const update = req.body.update;
       //  TODO: add type validation!
       if (update) {
@@ -57,7 +57,7 @@ class UpdatesController {
             .createUpdate(update)
             .then((_res) => {
               res.status(201).send({
-                message: "Update created!",
+                message: 'Update created!',
                 data: {
                   id: _res,
                 },
@@ -65,13 +65,13 @@ class UpdatesController {
             })
             .catch((error) => {
               res.status(500).send({
-                message: "Unable to create object.",
+                message: 'Unable to create object.',
                 error,
               });
             });
       } else {
         res.status(400).send({
-          message: "Provide update object in request body.",
+          message: 'Provide update object in request body.',
         });
       }
     });
