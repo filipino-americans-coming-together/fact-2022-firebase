@@ -1,9 +1,25 @@
+const admin = require("firebase-admin");
+const bodyParser = require("body-parser");
+const express = require("express");
 const functions = require("firebase-functions");
 
-// Create and Deploy Your First Cloud Functions
-// https://firebase.google.com/docs/functions/write-firebase-functions
+admin.initializeApp(functions.config().firebase);
+const db = admin.firestore();
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
+const app = express();
+app.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+  res.send("The FACT 2022 API Lives!");
 });
+
+// Routes
+// const NotificationsRouter = require("./controllers/NotificationsRouter");
+const UpdatesRouter = require("./controllers/UpdatesRouter");
+// const WorkshopsRouter = require("./controllers/WorkshopsRouter");
+
+// app.use("/notifications", new NotificationsRouter(db).routes);
+app.use("/updates", new UpdatesRouter(db).routes);
+// app.use("/workshops", new WorkshopsRouter().routes);
+
+exports.app = functions.https.onRequest(app);
