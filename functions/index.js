@@ -16,10 +16,10 @@ app.get('/', (req, res) => {
 // Routes
 // const NotificationsRouter = require("./controllers/NotificationsRouter");
 const UpdatesRouter = require('./controllers/UpdatesController');
-// const WorkshopsRouter = require("./controllers/WorkshopsRouter");
+const WorkshopsRouter = require('./controllers/WorkshopsController');
 
 // app.use("/notifications", new NotificationsRouter(db).routes);
 app.use('/updates', new UpdatesRouter(db).routes);
-// app.use("/workshops", new WorkshopsRouter().routes);
+app.use('/workshops', new WorkshopsRouter().routes);
 
 exports.app = functions.https.onRequest(app);
